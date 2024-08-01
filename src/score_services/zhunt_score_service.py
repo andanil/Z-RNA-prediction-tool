@@ -5,6 +5,7 @@ import os
 from subprocess import check_call, DEVNULL
 
 from .score_service import ScoreService
+from ..config import ZHUNT_FILE
 
 
 class ZHuntScoreService(ScoreService):
@@ -16,7 +17,7 @@ class ZHuntScoreService(ScoreService):
         with open(tmp, 'w') as file:
             file.write(seq)
 
-        check_call(['/home/pipeline/zrna_pipeline/score_services/zhunt3', '8', '6', '8', tmp], stdout=DEVNULL, stderr=DEVNULL)
+        check_call([ZHUNT_FILE, '8', '6', '8', tmp], stdout=DEVNULL, stderr=DEVNULL)
         seq_zhunt = self._get_zhscore_list(tmp + '.Z-SCORE')
 
         assert len(seq_zhunt) == len(seq), f"For sequence {seq} \n Z-score has length {len(seq_zhunt)} vs sequence length {len(seq)}"

@@ -1,0 +1,1 @@
+ZHUNT_FILE = '/content/Z-RNA-prediction-tool/src/score_services/zhunt3'
