@@ -19,7 +19,7 @@ def save_image(filename):
     plt.close('all')
 
 
-def plot_rna(rna_struct, title='', snp_pos=None, zdna_coord=None, forward=True):
+def plot_rna(rna_struct, title='', snp_pos=None, region_coord=None, forward=True):
     RNA.cvar.rna_plot_type = 1
 
     bp_to_color = {'G': 'red',
@@ -53,7 +53,7 @@ def plot_rna(rna_struct, title='', snp_pos=None, zdna_coord=None, forward=True):
         ax.plot(basepairs[:, :, 0].T, basepairs[:, :, 1].T, **bpkwargs)
 
     if not forward:
-        zdna_coord = reverse_region(zdna_coord, len(rna_struct))
+        region_coord = reverse_region(region_coord, len(rna_struct))
 
     if snp_pos:
         snp_pos = snp_pos if forward else reverse_pos(snp_pos, len(rna_struct))
@@ -64,8 +64,8 @@ def plot_rna(rna_struct, title='', snp_pos=None, zdna_coord=None, forward=True):
         h, l, s = colorsys.rgb_to_hls(*mc.to_rgb(c))
         l += (1 - l) * min(1, lighten)
         c = colorsys.hls_to_rgb(h, l, s)
-        if zdna_coord:
-            ed_color = 'red' if i >= zdna_coord[0] and i <= zdna_coord[1] else None
+        if region_coord:
+            ed_color = 'red' if i >= region_coord[0] and i <= region_coord[1] else None
         else:
             ed_color = None
         circle = plt.Circle((coord[0], coord[1]), facecolor=c, radius=r,

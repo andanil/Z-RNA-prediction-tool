@@ -1,9 +1,15 @@
 import numpy as np
 
 
-from .utils import get_seq_around_pos, reverse_compl, replace
+from .utils import get_seq_around_pos, reverse_compl, replace, get_seq
+from .rna.rna_struct import RNAStructure
 from .rna.zrna_struct import ZRNAStructure
 from .score_services.zhunt_score_service import ZHuntScoreService
+
+
+def get_struct(genome, chrom, start, end, padding):
+    seq = get_seq(genome, chrom, start - padding, end + padding)
+    return RNAStructure(seq)
 
 
 def get_structs_around_snp(genome, chrom, pos, windows):
